@@ -10,8 +10,15 @@ export default class DateTimePicker extends Component {
   static propTypes = {
     format: PropTypes.string,
     timePickerDelay: PropTypes.number,
-    defaultTime: PropTypes.object,
+    defaultTime: PropTypes.oneOf([PropTypes.object, PropTypes.string, PropTypes.number]),
     autoOkDatePicker: PropTypes.bool,
+    onTimeSelected: PropTypes.func,
+    onDateSelected: PropTypes.func,
+    fieldName: PropTypes.string,
+    shouldDisableDate: PropTypes.func,
+    openToYearSelection: PropTypes.bool,
+    datePickerMode: PropTypes.string,
+    disableYearSelection: false
   }
 
   static defaultProps = {
@@ -20,14 +27,21 @@ export default class DateTimePicker extends Component {
     containerClassName: 'datetime-container',
     textFieldClassName: 'datetime-input',
     defaultTime: null,
-    autoOkDatePicker: true
+    autoOkDatePicker: true,
+    fieldName: 'timePicker',
+    onDateSelected: () => {},
+    onTimeSelected: () => {},
+    shouldDisableDate: () => {},
+    datePickerMode: 'portrait',
+    openToYearSelection: false,
+    disableYearSelection: false 
   }
 
   constructor(props) {
     super(props);
 
     this.state = {
-      dateTime: props.defaultTime,
+      dateTime: props.defaultTime ? moment(this.props.defaultTime) : null,
     }
   }
 
@@ -38,6 +52,7 @@ export default class DateTimePicker extends Component {
   selectDate = (event, date) => {
     this.setState({ dateTime: moment(date) });
 
+    this.props.onDateSelected(this.state.dateTime)
     setTimeout(() => this.refs.timePicker.openDialog(), this.props.timePickerDelay)
   }
 
@@ -48,6 +63,8 @@ export default class DateTimePicker extends Component {
     dateTime.minutes(date.getMinutes())
 
     this.setState({ dateTime })
+
+    this.props.onTimeSelected(this.state.dateTime);
   }
 
   getDisplayTime = () => {
@@ -62,6 +79,7 @@ export default class DateTimePicker extends Component {
     return (
       <span className={this.props.containerClassName}>
         <TextField
+          name={this.props.fieldName}
           className={this.props.textFieldClassName}
           onClick={this.openDatePicker}
           value={this.getDisplayTime()}

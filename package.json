@@ -1,6 +1,6 @@
 {
   "name": "material-ui-datetimepicker",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Wrapper above material ui date and time pickers",
   "main": "./dist/modules/index.js",
   "scripts": {
@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/daviferreira/react-component-starter-kit.git"
+    "url": "https://github.com/dmtrKovalenko/material-ui-datetimepicker"
   },
   "keywords": [
     "react",
@@ -24,16 +24,16 @@
   "license": "MIT",
   "peerDependencies": {
     "react": "^0.14.2",
-    "material-ui": "^0.14.0",
-    "moment": "^2.0.0"
+    "material-ui": "^0.14.0"
   },
   "devDependencies": {
     "babel": "5.8.29",
     "babel-core": "5.8.30",
     "babel-loader": "5.3.2",
     "classnames": "2.1.5",
+    "css-loader": "0.28.4",
     "eslint": "1.6.0",
-    "material-ui": "0.18.7",
+    "extract-text-webpack-plugin": "3.0.0",
     "mocha": "2.3.3",
     "moment": "2.18.1",
     "react": "15.6.1",
@@ -41,10 +41,14 @@
     "react-dom": "15.6.1",
     "react-tap-event-plugin": "2.0.1",
     "sinon": "1.17.1",
+    "style-loader": "0.18.2",
     "trash": "3.1.2",
     "unexpected": "10.0.2",
     "unexpected-sinon": "8.0.0",
     "webpack": "1.12.1",
     "webpack-dev-server": "1.10.1"
+  },
+  "dependencies": {
+    "moment": "^2.0.0"
   }
 }

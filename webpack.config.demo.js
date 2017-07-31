@@ -2,6 +2,7 @@
 
 var path = require('path');
 var webpack = require('webpack');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
 
@@ -13,7 +14,8 @@ module.exports = {
 
   module: {
     loaders: [
-      { test: /\.jsx$/, loader: 'babel?stage=0', exclude: /node_modules/ }
+      { test: /\.jsx$/, loader: 'babel?stage=0', exclude: /node_modules/ },
+      { test: /\.css$/, loaders: ['style-loader', 'css-loader']  }
     ]
   },
 
@@ -26,7 +28,7 @@ module.exports = {
   },
 
   plugins: [
-    new webpack.HotModuleReplacementPlugin()
+    new webpack.HotModuleReplacementPlugin(),
   ],
 
   devServer: {
