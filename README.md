@@ -1,6 +1,6 @@
 # Material UI Date & Time picker
 
-> Wrapper for [Material UI](material-ui.com) Time and Date picker component
+> Wrapper for [Material UI](http://material-ui.com) Time and Date picker component
 
 Component, that joins Material UI`s pickers into the one component, one input and 2 dialogs, appearing one by one. 
 
