@@ -1,0 +1,50 @@
+{
+  "name": "material-ui-datetimepicker",
+  "version": "0.0.4",
+  "description": "Wrapper above material ui date and time pickers",
+  "main": "./dist/modules/index.js",
+  "scripts": {
+    "bundle-demo": "webpack --config webpack.config.demo.js",
+    "bundle": "webpack --config webpack.config.dist.js",
+    "demo": "webpack-dev-server --config webpack.config.demo.js",
+    "lint": "eslint ./src",
+    "test": "npm run lint && mocha -R spec --compilers jsx:test/compiler.js './src/*.test.jsx'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/daviferreira/react-component-starter-kit.git"
+  },
+  "keywords": [
+    "react",
+    "reactjs",
+    "react-component",
+    "starter-kit"
+  ],
+  "author": "Dmitriy Kovalenko <dmtr.kovalenko@outlook.com>",
+  "license": "MIT",
+  "peerDependencies": {
+    "react": "^0.14.2",
+    "material-ui": "^0.14.0",
+    "moment": "^2.0.0"
+  },
+  "devDependencies": {
+    "babel": "5.8.29",
+    "babel-core": "5.8.30",
+    "babel-loader": "5.3.2",
+    "classnames": "2.1.5",
+    "eslint": "1.6.0",
+    "material-ui": "0.18.7",
+    "mocha": "2.3.3",
+    "moment": "2.18.1",
+    "react": "15.6.1",
+    "react-addons-test-utils": "0.14.2",
+    "react-dom": "15.6.1",
+    "react-tap-event-plugin": "2.0.1",
+    "sinon": "1.17.1",
+    "trash": "3.1.2",
+    "unexpected": "10.0.2",
+    "unexpected-sinon": "8.0.0",
+    "webpack": "1.12.1",
+    "webpack-dev-server": "1.10.1"
+  }
+}
