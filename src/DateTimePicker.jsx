@@ -4,18 +4,21 @@ import PropTypes from 'prop-types';
 import moment from 'moment'
 import TextField from 'material-ui/TextField';
 import DatePickerDialog from 'material-ui/DatePicker/DatePickerDialog';
-import TimePicker from 'material-ui/TimePicker';
+import TimePickerDialog from 'material-ui/TimePicker/TimePickerDialog';
 
 export default class DateTimePicker extends Component {
   static propTypes = {
     format: PropTypes.string,
     timePickerDelay: PropTypes.number,
-    defaultTime: PropTypes.oneOf([PropTypes.object, PropTypes.string, PropTypes.number]),
+    okLabel: PropTypes.string,
+    defaultTime: PropTypes.oneOfType([PropTypes.object, PropTypes.string, PropTypes.number]),
+    fieldName: PropTypes.string,
+    showCurrentDateByDefault: PropTypes.bool,
+
+    // DatePicker
     autoOkDatePicker: PropTypes.bool,
-    onTimeSelected: PropTypes.func,
     onDateSelected: PropTypes.func,
     onDatePickerShow: PropTypes.func,
-    fieldName: PropTypes.string,
     shouldDisableDate: PropTypes.func,
     openToYearSelection: PropTypes.bool,
     datePickerMode: PropTypes.oneOf(['portrait', 'landscape']),
@@ -25,7 +28,15 @@ export default class DateTimePicker extends Component {
     openToYearSelection: PropTypes.bool,
     maxDate: PropTypes.oneOf([PropTypes.object, PropTypes.string, PropTypes.number]),
     minDate: PropTypes.oneOf([PropTypes.object, PropTypes.string, PropTypes.number]),
-    okLabel: PropTypes.string,
+
+    // TimePicker
+    onTimeSelected: PropTypes.func,
+    onTimePickerShow: PropTypes.func,
+    timePickerBodyStyle: PropTypes.object,
+    timeFormat: PropTypes.oneOf(['ampm', '24hr']),
+    autoOkTimePicker: PropTypes.bool,
+    timePickerDialogStyle: PropTypes.object,
+    minutesStep: PropTypes.number,
   }
 
   static defaultProps = {
@@ -36,16 +47,25 @@ export default class DateTimePicker extends Component {
     defaultTime: null,
     autoOkDatePicker: true,
     fieldName: 'timePicker',
-    onDateSelected: () => { },
-    onTimeSelected: () => { },
-    shouldDisableDate: () => { },
-    onDatePickerShow: () => { },
     datePickerMode: 'portrait',
     openToYearSelection: false,
     disableYearSelection: false,
     hideCalendarDate: false,
     openToYearSelection: false,
-    firstDayOfWeek: 1
+    firstDayOfWeek: 1,
+    timePickerBodyStyle: {},
+    timeFormat: 'ampm',
+    autoOkTimePicker: false,
+    timePickerDialogStyle: {},
+    minutesStep: 1,
+    showCurrentDateByDefault: false,
+
+    // functions
+    onTimePickerShow: () => { },
+    onDateSelected: () => { },
+    onTimeSelected: () => { },
+    shouldDisableDate: () => { },
+    onDatePickerShow: () => { },
   }
 
   constructor(props) {
@@ -56,18 +76,31 @@ export default class DateTimePicker extends Component {
     }
   }
 
+  getDate = () => {
+    return this.state.dateTime ? this.state.dateTime.toDate() : new Date();
+  }
+
+  parseTime = (time) => {
+    const formattedTime = time
+      ? moment(time).toDate()
+      : null
+
+    return formattedTime;
+  }
+
   openDatePicker = () => {
     this.refs.datePicker.show();
   }
 
-  selectDate = (event, date) => {
+  selectDate = (date) => {
     this.setState({ dateTime: moment(date) });
 
     this.props.onDateSelected(this.state.dateTime)
-    setTimeout(() => this.refs.timePicker.openDialog(), this.props.timePickerDelay)
+    // show timepicker
+    setTimeout(() => this.refs.timePicker.show(), this.props.timePickerDelay)
   }
 
-  selectTime = (event, date) => {
+  selectTime = (date) => {
     const { dateTime } = this.state;
 
     dateTime.hours(date.getHours())
@@ -80,10 +113,13 @@ export default class DateTimePicker extends Component {
 
   getDisplayTime = () => {
     const { dateTime } = this.state;
+    const defaultTime = this.props.showCurrentDateByDefault 
+      ? moment().format(this.props.format) 
+      : ''
 
     return dateTime
       ? dateTime.format(this.props.format)
-      : ''
+      : defaultTime
   }
 
   render() {
@@ -98,16 +134,16 @@ export default class DateTimePicker extends Component {
 
         <DatePickerDialog
           ref="datePicker"
-          autoOk={this.props.autoOkDatePicker}
-          disableYearSelection={this.props.disableYearSelection}
-          firstDayOfWeek={this.props.firstDayOfWeek}
-          initialDate={this.props.initialDate}
-          mode={this.props.datePickerMode}
-          maxDate={this.props.maxDate}
-          minDate={this.props.minDate}
-          container={'dialog'}
+          container='dialog'
+          initialDate={this.getDate()}
+          maxDate={this.parseTime(this.props.maxDate)}
+          minDate={this.parseTime(this.props.minDate)}
           okLabel={this.props.okLabel}
+          autoOk={this.props.autoOkDatePicker}
+          firstDayOfWeek={this.props.firstDayOfWeek}
           onAccept={this.selectDate}
+          mode={this.props.datePickerMode}
+          disableYearSelection={this.props.disableYearSelection}
           onShow={this.props.onDatePickerShow}
           onDismiss={this.props.onDatePickerDismiss}
           shouldDisableDate={this.props.shouldDisableDate}
@@ -115,20 +151,18 @@ export default class DateTimePicker extends Component {
           openToYearSelection={this.props.openToYearSelection}
         />
 
-        <div style={{ display: 'none' }}>
-          {/* <DatePicker
-            
-              onChange={this.selectDate}
-              ref='datePicker'
-              hintText="12hr Format"
-            /> */}
-
-          <TimePicker
-            ref='timePicker'
-            onChange={this.selectTime}
-            hintText="test"
-          />
-        </div>
+        <TimePickerDialog
+          ref="timePicker"
+          initialTime={this.getDate()}
+          onAccept={this.selectTime}
+          bodyStyle={this.props.timePickerBodyStyle}
+          onShow={this.props.onTimePickerShow}
+          format={this.props.timeFormat}
+          okLabel={this.props.okLabel}
+          autoOk={this.props.autoOkTimePicker}
+          style={this.props.timePickerDialogStyle}
+          minutesStep={this.props.minutesStep}
+        />
       </span>
     );
   }
