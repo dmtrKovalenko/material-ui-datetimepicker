@@ -23,8 +23,9 @@
   "author": "Dmitriy Kovalenko <dmtr.kovalenko@outlook.com>",
   "license": "MIT",
   "peerDependencies": {
-    "react": "^0.14.2",
-    "material-ui": "^0.14.0"
+    "react": "^0.14.0",
+    "material-ui": "^0.14.0",
+    "react-tap-event-plugin": "^0.2.0"
   },
   "devDependencies": {
     "babel": "5.8.29",
@@ -35,11 +36,10 @@
     "eslint": "1.6.0",
     "extract-text-webpack-plugin": "3.0.0",
     "mocha": "2.3.3",
-    "moment": "2.18.1",
-    "react": "15.6.1",
+    "react": "^0.14.0",
     "react-addons-test-utils": "0.14.2",
-    "react-dom": "15.6.1",
-    "react-tap-event-plugin": "2.0.1",
+    "react-dom": "^0.14.0",
+    "react-tap-event-plugin": "^0.2.0",
     "sinon": "1.17.1",
     "style-loader": "0.18.2",
     "trash": "3.1.2",
@@ -49,6 +49,7 @@
     "webpack-dev-server": "1.10.1"
   },
   "dependencies": {
+    "material-ui": "0.18.7",
     "moment": "^2.0.0"
   }
 }

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import moment from 'moment'
 import TextField from 'material-ui/TextField';
-import DatePicker from 'material-ui/DatePicker';
+import DatePickerDialog from 'material-ui/DatePicker/DatePickerDialog';
 import TimePicker from 'material-ui/TimePicker';
 
 export default class DateTimePicker extends Component {
@@ -14,11 +14,18 @@ export default class DateTimePicker extends Component {
     autoOkDatePicker: PropTypes.bool,
     onTimeSelected: PropTypes.func,
     onDateSelected: PropTypes.func,
+    onDatePickerShow: PropTypes.func,
     fieldName: PropTypes.string,
     shouldDisableDate: PropTypes.func,
     openToYearSelection: PropTypes.bool,
-    datePickerMode: PropTypes.string,
-    disableYearSelection: false
+    datePickerMode: PropTypes.oneOf(['portrait', 'landscape']),
+    disableYearSelection: PropTypes.bool,
+    hideCalendarDate: PropTypes.bool,
+    firstDayOfWeek: PropTypes.number,
+    openToYearSelection: PropTypes.bool,
+    maxDate: PropTypes.oneOf([PropTypes.object, PropTypes.string, PropTypes.number]),
+    minDate: PropTypes.oneOf([PropTypes.object, PropTypes.string, PropTypes.number]),
+    okLabel: PropTypes.string,
   }
 
   static defaultProps = {
@@ -29,12 +36,16 @@ export default class DateTimePicker extends Component {
     defaultTime: null,
     autoOkDatePicker: true,
     fieldName: 'timePicker',
-    onDateSelected: () => {},
-    onTimeSelected: () => {},
-    shouldDisableDate: () => {},
+    onDateSelected: () => { },
+    onTimeSelected: () => { },
+    shouldDisableDate: () => { },
+    onDatePickerShow: () => { },
     datePickerMode: 'portrait',
     openToYearSelection: false,
-    disableYearSelection: false 
+    disableYearSelection: false,
+    hideCalendarDate: false,
+    openToYearSelection: false,
+    firstDayOfWeek: 1
   }
 
   constructor(props) {
@@ -46,7 +57,7 @@ export default class DateTimePicker extends Component {
   }
 
   openDatePicker = () => {
-    this.refs.datePicker.openDialog();
+    this.refs.datePicker.show();
   }
 
   selectDate = (event, date) => {
@@ -85,13 +96,32 @@ export default class DateTimePicker extends Component {
           value={this.getDisplayTime()}
         />
 
+        <DatePickerDialog
+          ref="datePicker"
+          autoOk={this.props.autoOkDatePicker}
+          disableYearSelection={this.props.disableYearSelection}
+          firstDayOfWeek={this.props.firstDayOfWeek}
+          initialDate={this.props.initialDate}
+          mode={this.props.datePickerMode}
+          maxDate={this.props.maxDate}
+          minDate={this.props.minDate}
+          container={'dialog'}
+          okLabel={this.props.okLabel}
+          onAccept={this.selectDate}
+          onShow={this.props.onDatePickerShow}
+          onDismiss={this.props.onDatePickerDismiss}
+          shouldDisableDate={this.props.shouldDisableDate}
+          hideCalendarDate={this.props.hideCalendarDate}
+          openToYearSelection={this.props.openToYearSelection}
+        />
+
         <div style={{ display: 'none' }}>
-          <DatePicker
-            autoOk={this.props.autoOkDatePicker}
-            onChange={this.selectDate}
-            ref='datePicker'
-            hintText="12hr Format"
-          />
+          {/* <DatePicker
+            
+              onChange={this.selectDate}
+              ref='datePicker'
+              hintText="12hr Format"
+            /> */}
 
           <TimePicker
             ref='timePicker'
