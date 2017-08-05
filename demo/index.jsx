@@ -19,6 +19,10 @@ class Demo extends React.Component {
             title="Date-time Picker"
             iconClassNameRight="muidocs-icon-navigation-expand-more"
           />
+
+          <h2 className="text-center">
+            Material UI plugin for date and time picker, that joins Time & Date pickers into the one input. 
+          </h2>
           
           <div className="datepicker">
             <DateTimePicker />
