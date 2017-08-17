@@ -15,10 +15,13 @@
     "url": "https://github.com/dmtrKovalenko/material-ui-datetimepicker"
   },
   "keywords": [
-    "react",
-    "reactjs",
+    "material-ui",
+    "material design",
     "react-component",
-    "starter-kit"
+    "date picker",
+    "time picker",
+    "datetimepicker",
+    "material-ui-datetimepicker"
   ],
   "author": "Dmitriy Kovalenko <dmtr.kovalenko@outlook.com>",
   "license": "MIT",
