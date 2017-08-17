@@ -7,7 +7,7 @@ Component, that joins Material UI`s pickers into the one component, one input an
 
 ### Dependencies
 
-* **Material UI** (If are not using material-ui don`t use this package)
+* **Material UI** (Don`t use this package without material-ui, please)
 * **React** 
 
 ### Getting Started
@@ -16,6 +16,8 @@ Here is a quick example to get you started, it's all you need:
 ```sh
 npm install material-ui-datetimepicker
 ``` 
+
+Simple usage
 
 ```jsx
 import React from 'react';
