@@ -2,6 +2,7 @@
 
 > Wrapper for [Material UI](http://material-ui.com) Time and Date picker component
 
+# [Demo](https://dmtrkovalenko.github.io/material-ui-datetimepicker/)
 Component, that joins Material UI`s pickers into the one component, one input and 2 dialogs, appearing one by one. 
 
 ### Dependencies
