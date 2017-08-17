@@ -10,6 +10,30 @@ Component, that joins Material UI`s pickers into the one component, one input an
 * **React** 
 
 ### Getting Started
+Here is a quick example to get you started, it's all you need:
+
+```sh
+npm install material-ui-datetimepicker
+``` 
+
+```jsx
+import React from 'react';
+import DateTimePicker from 'material-ui-datetimepicker';
+
+class Demo extends React.Component {
+  state = {
+    dateTime: null
+  }
+
+  setDate = (dateTime) => this.setState({ dateTime })
+
+  render() {
+    return (
+      <DateTimePicker onChange={this.setDate} />
+    );
+  }
+}
+```
 
 
 ### Properties

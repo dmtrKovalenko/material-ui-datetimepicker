@@ -13,17 +13,14 @@ body {
   font-family: 'Open Sans', sans-serif;
 }
 
-.main {
-  padding: 0 5px;
-}
-
 .picker-container {
   display: flex;
   justify-content: center;
   margin-top: 40px;
 }
 
-.text-center {
+.title {
+  padding: 0 5px;
   text-align: center;
 }
 

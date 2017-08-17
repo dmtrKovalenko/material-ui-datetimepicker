@@ -25,13 +25,13 @@ class Demo extends React.Component {
   render() {
     return (
       <MuiThemeProvider>
-        <div className="main">
+        <div className="app">
           <AppBar
             title="Material UI Date & Time picker"
             iconClassNameRight="muidocs-icon-navigation-expand-more"
           />
 
-          <h2 className="text-center">
+          <h2 className="title">
             <a href="http://www.material-ui.com/#/">Material UI</a> plugin for Date & Time picker.
           </h2>
 
