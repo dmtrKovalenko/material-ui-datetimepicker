@@ -3,8 +3,10 @@ import PropTypes from 'prop-types';
 
 import moment from 'moment'
 import TextField from 'material-ui/TextField';
+import IconButton from 'material-ui/IconButton';
 import DatePickerDialog from 'material-ui/DatePicker/DatePickerDialog';
 import TimePickerDialog from 'material-ui/TimePicker/TimePickerDialog';
+import ClearIcon from 'material-ui/svg-icons/content/clear'
 
 export default class DateTimePicker extends Component {
   static propTypes = {
@@ -14,6 +16,11 @@ export default class DateTimePicker extends Component {
     defaultTime: PropTypes.oneOfType([PropTypes.object, PropTypes.string, PropTypes.number]),
     fieldName: PropTypes.string,
     showCurrentDateByDefault: PropTypes.bool,
+    returnMomentDate: PropTypes.bool,
+    clearIcon: PropTypes.node,
+
+    // styles
+    className: PropTypes.string,
 
     // DatePicker
     autoOkDatePicker: PropTypes.bool,
@@ -42,7 +49,7 @@ export default class DateTimePicker extends Component {
   static defaultProps = {
     format: 'MMM DD, YYYY hh:mm A',
     timePickerDelay: 150,
-    containerClassName: 'datetime-container',
+    className: 'datetime-container',
     textFieldClassName: 'datetime-input',
     defaultTime: null,
     autoOkDatePicker: true,
@@ -59,13 +66,16 @@ export default class DateTimePicker extends Component {
     timePickerDialogStyle: {},
     minutesStep: 1,
     showCurrentDateByDefault: false,
+    returnMomentDate: false,
+    clearIcon: <ClearIcon />,
 
     // functions
+    onChange: () => { },
     onTimePickerShow: () => { },
+    onDatePickerShow: () => { },
     onDateSelected: () => { },
     onTimeSelected: () => { },
     shouldDisableDate: () => { },
-    onDatePickerShow: () => { },
   }
 
   constructor(props) {
@@ -76,16 +86,30 @@ export default class DateTimePicker extends Component {
     }
   }
 
+  /* 
+    * Get current selected date by user
+    @returns { Object } moment or vanilla date object
+  */
   getDate = () => {
-    return this.state.dateTime ? this.state.dateTime.toDate() : new Date();
+    if (!this.state.dateTime) {
+      return null;
+    }
+
+    return this.props.returnMomentDate
+      ? this.state.dateTime
+      : this.state.dateTime.toDate()
   }
 
-  parseTime = (time) => {
-    const formattedTime = time
+  getDateOrCurrentTime = () => {
+    return this.state.dateTime 
+      ? this.state.dateTime.toDate() 
+      : new Date();
+  }
+
+  getDateOrNull = (time) => {
+    return time
       ? moment(time).toDate()
       : null
-
-    return formattedTime;
   }
 
   openDatePicker = () => {
@@ -95,7 +119,7 @@ export default class DateTimePicker extends Component {
   selectDate = (date) => {
     this.setState({ dateTime: moment(date) });
 
-    this.props.onDateSelected(this.state.dateTime)
+    this.props.onDateSelected(this.getDate())
     // show timepicker
     setTimeout(() => this.refs.timePicker.show(), this.props.timePickerDelay)
   }
@@ -106,9 +130,10 @@ export default class DateTimePicker extends Component {
     dateTime.hours(date.getHours())
     dateTime.minutes(date.getMinutes())
 
-    this.setState({ dateTime })
-
-    this.props.onTimeSelected(this.state.dateTime);
+    this.setState({ dateTime }, () => {
+      this.props.onTimeSelected(this.getDate());
+      this.props.onChange(this.getDate())
+    })
   }
 
   getDisplayTime = () => {
@@ -122,22 +147,32 @@ export default class DateTimePicker extends Component {
       : defaultTime
   }
 
+  clearState = () => {
+    this.setState({ dateTime: null });
+    this.props.onChange(null)
+  }
+
   render() {
     return (
-      <span className={this.props.containerClassName}>
+      <span className={this.props.className}>
         <TextField
           name={this.props.fieldName}
           className={this.props.textFieldClassName}
           onClick={this.openDatePicker}
           value={this.getDisplayTime()}
+          style={{width: '200px'}}
         />
+
+        <IconButton onClick={this.clearState}>
+          { this.props.clearIcon }
+        </IconButton>
 
         <DatePickerDialog
           ref="datePicker"
           container='dialog'
-          initialDate={this.getDate()}
-          maxDate={this.parseTime(this.props.maxDate)}
-          minDate={this.parseTime(this.props.minDate)}
+          initialDate={this.getDateOrCurrentTime()}
+          maxDate={this.getDateOrNull(this.props.maxDate)}
+          minDate={this.getDateOrNull(this.props.minDate)}
           okLabel={this.props.okLabel}
           autoOk={this.props.autoOkDatePicker}
           firstDayOfWeek={this.props.firstDayOfWeek}
@@ -153,7 +188,7 @@ export default class DateTimePicker extends Component {
 
         <TimePickerDialog
           ref="timePicker"
-          initialTime={this.getDate()}
+          initialTime={this.getDateOrCurrentTime()}
           onAccept={this.selectTime}
           bodyStyle={this.props.timePickerBodyStyle}
           onShow={this.props.onTimePickerShow}

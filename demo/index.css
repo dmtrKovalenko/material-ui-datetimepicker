@@ -13,7 +13,11 @@ body {
   font-family: 'Open Sans', sans-serif;
 }
 
-.datetime-container {
+.main {
+  padding: 0 5px;
+}
+
+.picker-container {
   display: flex;
   justify-content: center;
   margin-top: 40px;
@@ -21,4 +25,16 @@ body {
 
 .text-center {
   text-align: center;
+}
+
+.options {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.options > .option {
+  margin: 0 10px 10px;
 }
