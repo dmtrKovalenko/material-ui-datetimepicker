@@ -1,6 +1,6 @@
 {
   "name": "material-ui-datetimepicker",
-  "version": "0.0.5",
+  "version": "0.1.0",
   "description": "Wrapper above material ui date and time pickers",
   "main": "./dist/modules/index.js",
   "scripts": {
@@ -23,6 +23,7 @@
     "datetimepicker",
     "material-ui-datetimepicker"
   ],
+  "homepage": "https://dmtrkovalenko.github.io/material-ui-datetimepicker/",
   "author": "Dmitriy Kovalenko <dmtr.kovalenko@outlook.com>",
   "license": "MIT",
   "peerDependencies": {
