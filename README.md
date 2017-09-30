@@ -17,7 +17,7 @@ Here is a quick example to get you started, it's all you need:
 npm install material-ui-datetimepicker
 ``` 
 
-Simple usage
+### Simple usage
 
 ```jsx
 import React from 'react';
@@ -38,12 +38,38 @@ class Demo extends React.Component {
 }
 ```
 
+### Advanced 
+Note that each of this props applied by default
 
-### Properties
-
+```jsx
+<DateTimePicker
+  format='MMM DD, YYYY hh:mm A'
+  timePickerDelay={150}
+  returnMomentDate={false} // if true will return moment object
+  className='datetime-container'
+  textFieldClassName='datetime-input'
+  defaultTime={null} // will accept Date or moment
+  fieldName='picker' // form value name
+  datePickerMode='portrait' // or landscape
+  openToYearSelection={false} 
+  disableYearSelection={false}
+  hideCalendarDate={false}
+  firstDayOfWeek={1}
+  minutesStep={1}
+  showCurrentDateByDefault={false}
+  clearIcon={<ClearIcon />} // set null to not render nothing
+  // available callbacks
+  onChange={() => {}}
+  onTimePickerShow={() => {}}
+  onDatePickerShow={() => {}}
+  onDateSelected={() => {}}
+  onTimeSelected={() => {}}
+  shouldDisableDate={() => {}}
+/>
+```
 
 ## Contributing
+For information about how to contribute, see the [CONTRIBUTING](https://github.com/dmtrKovalenko/material-ui-datetimepicker/blob/master/CONTRIBUTING) file.
 
 ## LICENSE
-
-MIT: 
+The project is licensed under the terms of [MIT license](https://github.com/dmtrKovalenko/material-ui-datetimepicker/blob/master/LICENSE)

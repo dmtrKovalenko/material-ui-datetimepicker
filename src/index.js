@@ -1,5 +1,1 @@
-'use strict';
-
-import YourComponent from './DateTimePicker.jsx';
-
-export default YourComponent;
+export { default } from './DateTimePicker.jsx'

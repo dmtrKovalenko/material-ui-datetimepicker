@@ -58,7 +58,6 @@ export default class DateTimePicker extends Component {
     openToYearSelection: false,
     disableYearSelection: false,
     hideCalendarDate: false,
-    openToYearSelection: false,
     firstDayOfWeek: 1,
     timePickerBodyStyle: {},
     timeFormat: 'ampm',
