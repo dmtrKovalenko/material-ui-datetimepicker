@@ -1,7 +1,7 @@
 # Contributing
-:raised_hands::tada: First off, thanks for taking the time to contribute! :tada::raised_hands:
+:raised_hands::tada: First off all, thanks for taking the time to contribute! :tada::raised_hands:
 
-The following is a set of guidelines for contributing to react-datetime. The purpose of these 
+The following is a set of guidelines for contributing to material-ui-datetimepicker. The purpose of these 
 guidelines is to maintain a high quality of code *and* traceability. Please respect these 
 guidelines.
 
