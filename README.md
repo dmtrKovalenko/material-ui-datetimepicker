@@ -69,7 +69,7 @@ Note that each of this props applied by default
 ```
 
 ## Contributing
-For information about how to contribute, see the [CONTRIBUTING](https://github.com/dmtrKovalenko/material-ui-datetimepicker/blob/master/CONTRIBUTING) file.
+For information about how to contribute, see the [CONTRIBUTING](https://github.com/dmtrKovalenko/material-ui-datetimepicker/blob/master/CONTRIBUTE.md) file.
 
 ## LICENSE
 The project is licensed under the terms of [MIT license](https://github.com/dmtrKovalenko/material-ui-datetimepicker/blob/master/LICENSE)
