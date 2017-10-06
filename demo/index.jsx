@@ -3,10 +3,11 @@ import ReactDOM from 'react-dom';
 
 import DateTimePicker from '../src/DateTimePicker';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import ClockIcon from 'material-ui/svg-icons/action/update';
 
 import AppBar from 'material-ui/AppBar';
 import TextField from 'material-ui/TextField';
-import { Card, CardHeader, CardTitle, CardText } from 'material-ui/Card';
+import { Card, CardHeader, CardTitle, CardText, IconButton } from 'material-ui';
 
 import './index.css'
 
@@ -23,12 +24,18 @@ class Demo extends React.Component {
   }
 
   render() {
+    const leftIcon = (
+      <a href="https://github.com/dmtrKovalenko/material-ui-datetimepicker">
+        <IconButton> <ClockIcon color="white" /> </IconButton>
+      </a>
+    )
     return (
       <MuiThemeProvider>
         <div className="app">
           <AppBar
             title="Material UI Date & Time picker"
-            iconClassNameRight="muidocs-icon-navigation-expand-more"
+            iconElementLeft={leftIcon}
+            iconClassNameRight="update"
           />
 
           <h2 className="title">
@@ -38,7 +45,7 @@ class Demo extends React.Component {
           <div className="datepicker">
             <DateTimePicker
               ref="picker"
-              className="picker-container"
+              floatingLabelText="Get my date"
               format={this.state.format}
               timePickerDelay={this.state.delay}
               defaultTime={this.state.defaultTime}

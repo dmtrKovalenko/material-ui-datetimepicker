@@ -67,7 +67,20 @@ Note that each of this props applied by default
   shouldDisableDate={() => {}}
 />
 ```
+### Customizing input
+You can apply any of material ui [Text Field](http://www.material-ui.com/#/components/text-field) props to the root.
 
+```jsx
+<DateTimePicker
+  floatingLabelFixed	
+  floatingLabelText="Get my date"
+  floatingLabelFocusStyle={{ marginTop: '10px' }}
+  disabled={false}
+  errorText='Required'
+  id="some-id"
+  fullWidth={false}
+/>
+```
 ## Contributing
 For information about how to contribute, see the [CONTRIBUTING](https://github.com/dmtrKovalenko/material-ui-datetimepicker/blob/master/CONTRIBUTE.md) file.
 
