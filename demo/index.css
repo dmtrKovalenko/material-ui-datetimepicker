@@ -13,10 +13,14 @@ body {
   font-family: 'Open Sans', sans-serif;
 }
 
+.datepicker {
+  display: flex;
+  justify-content: center;
+}
+
 .picker-container {
   display: flex;
   justify-content: center;
-  margin-top: 40px;
 }
 
 .title {

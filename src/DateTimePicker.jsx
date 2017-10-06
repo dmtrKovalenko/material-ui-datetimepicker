@@ -44,9 +44,11 @@ export default class DateTimePicker extends Component {
     autoOkTimePicker: PropTypes.bool,
     timePickerDialogStyle: PropTypes.object,
     minutesStep: PropTypes.number,
+    name: PropTypes.string,
   }
 
   static defaultProps = {
+    name: 'datepicker',
     format: 'MMM DD, YYYY hh:mm A',
     timePickerDelay: 150,
     className: 'datetime-container',
@@ -167,51 +169,58 @@ export default class DateTimePicker extends Component {
   }
 
   render() {
+    const { 
+      handleFocus, clearIcon, maxDate, minDate, autoOkDatePicker, firstDayOfWeek, textFieldClassName,
+      datePickerMode, disableYearSelection, onDatePickerShow, onDatePickerDismiss, shouldDisableDate,
+      hideCalendarDate, openToYearSelection, timePickerBodyStyle, onTimePickerShow, timeFormat,
+      okLabel, autoOkTimePicker, timePickerDialogStyle, minutesStep,
+      ...other 
+    } = this.props;
+
     return (
       <span className={this.props.className}>
         <TextField
           onFocus={this.handleFocus}
-          name={this.props.fieldName}
-          className={this.props.textFieldClassName}
+          className={textFieldClassName}
           onClick={this.openDatePicker}
           value={this.getDisplayTime()}
-          style={{width: '200px'}}
+          {...other}
         />
 
         <IconButton onClick={this.clearState}>
-          { this.props.clearIcon }
+          { clearIcon }
         </IconButton>
 
         <DatePickerDialog
           ref="datePicker"
           container='dialog'
           initialDate={this.getDateOrCurrentTime()}
-          maxDate={this.getDateOrNull(this.props.maxDate)}
-          minDate={this.getDateOrNull(this.props.minDate)}
-          okLabel={this.props.okLabel}
-          autoOk={this.props.autoOkDatePicker}
-          firstDayOfWeek={this.props.firstDayOfWeek}
+          maxDate={this.getDateOrNull(maxDate)}
+          minDate={this.getDateOrNull(minDate)}
+          okLabel={okLabel}
+          autoOk={autoOkDatePicker}
+          firstDayOfWeek={firstDayOfWeek}
           onAccept={this.selectDate}
-          mode={this.props.datePickerMode}
-          disableYearSelection={this.props.disableYearSelection}
-          onShow={this.props.onDatePickerShow}
-          onDismiss={this.props.onDatePickerDismiss}
-          shouldDisableDate={this.props.shouldDisableDate}
-          hideCalendarDate={this.props.hideCalendarDate}
-          openToYearSelection={this.props.openToYearSelection}
+          mode={datePickerMode}
+          disableYearSelection={disableYearSelection}
+          onShow={onDatePickerShow}
+          onDismiss={onDatePickerDismiss}
+          shouldDisableDate={shouldDisableDate}
+          hideCalendarDate={hideCalendarDate}
+          openToYearSelection={openToYearSelection}
         />
 
         <TimePickerDialog
           ref="timePicker"
           defaultTime={this.getDateOrCurrentTime()}
           onAccept={this.selectTime}
-          bodyStyle={this.props.timePickerBodyStyle}
-          onShow={this.props.onTimePickerShow}
-          format={this.props.timeFormat}
-          okLabel={this.props.okLabel}
-          autoOk={this.props.autoOkTimePicker}
-          style={this.props.timePickerDialogStyle}
-          minutesStep={this.props.minutesStep}
+          bodyStyle={timePickerBodyStyle}
+          onShow={onTimePickerShow}
+          format={timeFormat}
+          okLabel={okLabel}
+          autoOk={autoOkTimePicker}
+          style={timePickerDialogStyle}
+          minutesStep={minutesStep}
         />
       </span>
     );
