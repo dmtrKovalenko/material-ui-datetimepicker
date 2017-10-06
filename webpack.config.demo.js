@@ -30,7 +30,8 @@ module.exports = {
   ],
 
   devServer: {
-    contentBase: './demo'
+    contentBase: './demo',
+    host: '0.0.0.0'
   }
 
 };

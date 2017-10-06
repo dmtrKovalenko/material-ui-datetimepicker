@@ -67,9 +67,11 @@ export default class DateTimePicker extends Component {
     showCurrentDateByDefault: false,
     returnMomentDate: false,
     clearIcon: <ClearIcon />,
+    onFocus: PropTypes.func,
 
     // functions
     onChange: () => { },
+    onFocus: () => { },
     onTimePickerShow: () => { },
     onDatePickerShow: () => { },
     onDateSelected: () => { },
@@ -85,6 +87,13 @@ export default class DateTimePicker extends Component {
     }
   }
 
+  handleFocus = (event) => {
+    event.target.blur();
+    if (this.props.onFocus) {
+      this.props.onFocus(event);
+    }
+  };
+  
   /* 
     * Get current selected date by user
     @returns { Object } moment or vanilla date object
@@ -111,12 +120,18 @@ export default class DateTimePicker extends Component {
       : null
   }
 
-  openDatePicker = () => {
+  openDatePicker = e => {
+    e.preventDefault()
     this.refs.datePicker.show();
   }
 
   selectDate = (date) => {
-    this.setState({ dateTime: moment(date) });
+    const currentDateTime = moment(this.getDateOrCurrentTime());
+    const dateTime = moment(date) 
+      .set('hours', currentDateTime.hours()) // fill time unites
+      .set('minutes', currentDateTime.minutes())
+
+    this.setState({ dateTime });
 
     this.props.onDateSelected(this.getDate())
     // show timepicker
@@ -155,6 +170,7 @@ export default class DateTimePicker extends Component {
     return (
       <span className={this.props.className}>
         <TextField
+          onFocus={this.handleFocus}
           name={this.props.fieldName}
           className={this.props.textFieldClassName}
           onClick={this.openDatePicker}
@@ -187,7 +203,7 @@ export default class DateTimePicker extends Component {
 
         <TimePickerDialog
           ref="timePicker"
-          initialTime={this.getDateOrCurrentTime()}
+          defaultTime={this.getDateOrCurrentTime()}
           onAccept={this.selectTime}
           bodyStyle={this.props.timePickerBodyStyle}
           onShow={this.props.onTimePickerShow}
