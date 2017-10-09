@@ -173,7 +173,7 @@ export default class DateTimePicker extends Component {
       handleFocus, clearIcon, maxDate, minDate, autoOkDatePicker, firstDayOfWeek, textFieldClassName,
       datePickerMode, disableYearSelection, onDatePickerShow, onDatePickerDismiss, shouldDisableDate,
       hideCalendarDate, openToYearSelection, timePickerBodyStyle, onTimePickerShow, timeFormat,
-      okLabel, autoOkTimePicker, timePickerDialogStyle, minutesStep,
+      okLabel, autoOkTimePicker, timePickerDialogStyle, minutesStep, timePickerDelay,
       ...other 
     } = this.props;
 
