@@ -5,6 +5,23 @@
 # [Demo](https://dmtrkovalenko.github.io/material-ui-datetimepicker/)
 Component, that joins Material UI`s pickers into the one component, one input and 2 dialogs, appearing one by one. 
 
+### Breaking change
+Due to support of React 16 it was required to change the logic of this component work. Because of now its required to have an owner for ref, but material-ui components have refs inside their components its required to pass them from your app instead of importing from the material ui in package
+
+*do* 
+```jsx
+import DatePickerDialog from 'material-ui/DatePicker/DatePickerDialog';
+import TimePickerDialog from 'material-ui/TimePicker/TimePickerDialog';
+
+<DateTimePicker 
+  onChange={this.setDate} 
+  DatePicker={DatePickerDialog}
+  TimePicker={TimePickerDialog}
+/>
+```
+
+We are recommending to use your custom wrapper outside of this component to store your custom props, and not pass Dialogs each time you use this package, because it should be solved in one of next material-ui versions
+
 ### Dependencies
 
 * **Material UI** (Don`t use this package without material-ui, please)
@@ -22,6 +39,8 @@ npm install material-ui-datetimepicker
 ```jsx
 import React from 'react';
 import DateTimePicker from 'material-ui-datetimepicker';
+import DatePickerDialog from 'material-ui/DatePicker/DatePickerDialog'
+import TimePickerDialog from 'material-ui/TimePicker/TimePickerDialog';
 
 class Demo extends React.Component {
   state = {
@@ -32,7 +51,11 @@ class Demo extends React.Component {
 
   render() {
     return (
-      <DateTimePicker onChange={this.setDate} />
+      <DateTimePicker 
+        onChange={this.setDate}
+        DatePicker={DatePickerDialog}
+        TimePicker={TimePickerDialog}
+      />
     );
   }
 }
@@ -42,6 +65,9 @@ class Demo extends React.Component {
 Note that each of this props applied by default
 
 ```jsx
+import DatePickerDialog from 'material-ui/DatePicker/DatePickerDialog';
+import TimePickerDialog from 'material-ui/TimePicker/TimePickerDialog';
+
 <DateTimePicker
   format='MMM DD, YYYY hh:mm A'
   timePickerDelay={150}
@@ -65,6 +91,8 @@ Note that each of this props applied by default
   onDateSelected={() => {}}
   onTimeSelected={() => {}}
   shouldDisableDate={() => {}}
+  DatePicker={DatePickerDialog}
+  TimePicker={TimePickerDialog}
 />
 ```
 ### Customizing input
