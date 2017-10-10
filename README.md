@@ -6,7 +6,7 @@
 Component, that joins Material UI`s pickers into the one component, one input and 2 dialogs, appearing one by one. 
 
 ### Breaking change
-Due to support of React 16 it was required to change the logic of this component work. Because of now its required to have an owner for ref, but material-ui components have refs inside their components its required to pass them from your app instead of importing from the material ui in package
+Due to support of React 16 it was required to change the logic of this component work. Because of each ref should have an owner and material-ui components have refs inside their implementation you should pass created component from material-ui to this datetimepicker via props
 
 *do* 
 ```jsx
