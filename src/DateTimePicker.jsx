@@ -1,23 +1,27 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import moment from 'moment'
-import TextField from 'material-ui/TextField';
-import IconButton from 'material-ui/IconButton';
-import DatePickerDialog from 'material-ui/DatePicker/DatePickerDialog';
-import TimePickerDialog from 'material-ui/TimePicker/TimePickerDialog';
-import ClearIcon from 'material-ui/svg-icons/content/clear'
+import moment from 'moment';
+import ClearIcon from 'material-ui/svg-icons/content/clear';
+import { TextField, IconButton } from 'material-ui';
 
 export default class DateTimePicker extends Component {
   static propTypes = {
+    // IMPORTANT
+    DatePicker: PropTypes.shape({}).isRequired,
+    TimePicker: PropTypes.shape({}).isRequired,
+
     format: PropTypes.string,
     timePickerDelay: PropTypes.number,
     okLabel: PropTypes.string,
     defaultTime: PropTypes.oneOfType([PropTypes.object, PropTypes.string, PropTypes.number]),
-    fieldName: PropTypes.string,
+    name: PropTypes.string,
     showCurrentDateByDefault: PropTypes.bool,
     returnMomentDate: PropTypes.bool,
     clearIcon: PropTypes.node,
+    textFieldClassName: PropTypes.string,
+    onChange: PropTypes.func,
+    onFocus: PropTypes.func,
 
     // styles
     className: PropTypes.string,
@@ -32,22 +36,24 @@ export default class DateTimePicker extends Component {
     disableYearSelection: PropTypes.bool,
     hideCalendarDate: PropTypes.bool,
     firstDayOfWeek: PropTypes.number,
-    openToYearSelection: PropTypes.bool,
+    onDatePickerDismiss: PropTypes.func,
     maxDate: PropTypes.oneOf([PropTypes.object, PropTypes.string, PropTypes.number]),
     minDate: PropTypes.oneOf([PropTypes.object, PropTypes.string, PropTypes.number]),
 
     // TimePicker
     onTimeSelected: PropTypes.func,
     onTimePickerShow: PropTypes.func,
-    timePickerBodyStyle: PropTypes.object,
+    timePickerBodyStyle: PropTypes.shape({}),
     timeFormat: PropTypes.oneOf(['ampm', '24hr']),
     autoOkTimePicker: PropTypes.bool,
-    timePickerDialogStyle: PropTypes.object,
+    timePickerDialogStyle: PropTypes.shape({}),
     minutesStep: PropTypes.number,
-    name: PropTypes.string,
   }
 
   static defaultProps = {
+    okLabel: 'OK',
+    minDate: undefined,
+    maxDate: undefined,
     name: 'datepicker',
     format: 'MMM DD, YYYY hh:mm A',
     timePickerDelay: 150,
@@ -55,7 +61,6 @@ export default class DateTimePicker extends Component {
     textFieldClassName: 'datetime-input',
     defaultTime: null,
     autoOkDatePicker: true,
-    fieldName: 'timePicker',
     datePickerMode: 'portrait',
     openToYearSelection: false,
     disableYearSelection: false,
@@ -69,7 +74,6 @@ export default class DateTimePicker extends Component {
     showCurrentDateByDefault: false,
     returnMomentDate: false,
     clearIcon: <ClearIcon />,
-    onFocus: PropTypes.func,
 
     // functions
     onChange: () => { },
@@ -79,6 +83,7 @@ export default class DateTimePicker extends Component {
     onDateSelected: () => { },
     onTimeSelected: () => { },
     shouldDisableDate: () => { },
+    onDatePickerDismiss: () => { },
   }
 
   constructor(props) {
@@ -86,17 +91,11 @@ export default class DateTimePicker extends Component {
 
     this.state = {
       dateTime: props.defaultTime ? moment(this.props.defaultTime) : null,
-    }
+    };
   }
 
-  handleFocus = (event) => {
-    event.target.blur();
-    if (this.props.onFocus) {
-      this.props.onFocus(event);
-    }
-  };
-  
-  /* 
+
+  /*
     * Get current selected date by user
     @returns { Object } moment or vanilla date object
   */
@@ -107,74 +106,87 @@ export default class DateTimePicker extends Component {
 
     return this.props.returnMomentDate
       ? this.state.dateTime
-      : this.state.dateTime.toDate()
+      : this.state.dateTime.toDate();
   }
 
-  getDateOrCurrentTime = () => {
-    return this.state.dateTime 
-      ? this.state.dateTime.toDate() 
-      : new Date();
+  getDateOrCurrentTime = () => (this.state.dateTime
+    ? this.state.dateTime.toDate()
+    : new Date())
+
+  getDateOrNull = time => (time
+    ? moment(time).toDate()
+    : null)
+
+  getDisplayTime = () => {
+    const { dateTime } = this.state;
+    const defaultTime = this.props.showCurrentDateByDefault
+      ? moment().format(this.props.format)
+      : '';
+
+    return dateTime
+      ? dateTime.format(this.props.format)
+      : defaultTime;
   }
 
-  getDateOrNull = (time) => {
-    return time
-      ? moment(time).toDate()
-      : null
-  }
-
-  openDatePicker = e => {
-    e.preventDefault()
-    this.refs.datePicker.show();
+  openDatePicker = (e) => {
+    e.preventDefault();
+    this.datePicker.show();
   }
 
   selectDate = (date) => {
     const currentDateTime = moment(this.getDateOrCurrentTime());
-    const dateTime = moment(date) 
+    const dateTime = moment(date)
       .set('hours', currentDateTime.hours()) // fill time unites
-      .set('minutes', currentDateTime.minutes())
+      .set('minutes', currentDateTime.minutes());
 
     this.setState({ dateTime });
 
-    this.props.onDateSelected(this.getDate())
+    this.props.onDateSelected(this.getDate());
     // show timepicker
-    setTimeout(() => this.refs.timePicker.show(), this.props.timePickerDelay)
+    setTimeout(() => this.timePicker.show(), this.props.timePickerDelay);
   }
 
   selectTime = (date) => {
     const { dateTime } = this.state;
 
-    dateTime.hours(date.getHours())
-    dateTime.minutes(date.getMinutes())
+    dateTime.hours(date.getHours());
+    dateTime.minutes(date.getMinutes());
 
     this.setState({ dateTime }, () => {
       this.props.onTimeSelected(this.getDate());
-      this.props.onChange(this.getDate())
-    })
+      this.props.onChange(this.getDate());
+    });
   }
 
-  getDisplayTime = () => {
-    const { dateTime } = this.state;
-    const defaultTime = this.props.showCurrentDateByDefault 
-      ? moment().format(this.props.format) 
-      : ''
-
-    return dateTime
-      ? dateTime.format(this.props.format)
-      : defaultTime
-  }
+  handleFocus = (event) => {
+    event.target.blur();
+    if (this.props.onFocus) {
+      this.props.onFocus(event);
+    }
+  };
 
   clearState = () => {
     this.setState({ dateTime: null });
-    this.props.onChange(null)
+    this.props.onChange(null);
   }
 
   render() {
-    const { 
-      handleFocus, clearIcon, maxDate, minDate, autoOkDatePicker, firstDayOfWeek, textFieldClassName,
-      datePickerMode, disableYearSelection, onDatePickerShow, onDatePickerDismiss, shouldDisableDate,
-      hideCalendarDate, openToYearSelection, timePickerBodyStyle, onTimePickerShow, timeFormat,
-      okLabel, autoOkTimePicker, timePickerDialogStyle, minutesStep, timePickerDelay,
-      ...other 
+    const {
+      clearIcon, maxDate, minDate, timeFormat,
+      firstDayOfWeek, textFieldClassName, autoOkDatePicker,
+      datePickerMode, disableYearSelection, shouldDisableDate,
+      hideCalendarDate, openToYearSelection, timePickerBodyStyle,
+      okLabel, autoOkTimePicker, timePickerDialogStyle,
+      minutesStep, timePickerDelay, defaultTime,
+      showCurrentDateByDefault, returnMomentDate,
+      DatePicker, TimePicker,
+      onChange, onFocus,
+      onTimePickerShow,
+      onDatePickerShow,
+      onDatePickerDismiss,
+      onDateSelected,
+      onTimeSelected,
+      ...other
     } = this.props;
 
     return (
@@ -191,9 +203,8 @@ export default class DateTimePicker extends Component {
           { clearIcon }
         </IconButton>
 
-        <DatePickerDialog
-          ref="datePicker"
-          container='dialog'
+        <DatePicker
+          ref={(node) => { this.datePicker = node; }}
           initialDate={this.getDateOrCurrentTime()}
           maxDate={this.getDateOrNull(maxDate)}
           minDate={this.getDateOrNull(minDate)}
@@ -210,8 +221,8 @@ export default class DateTimePicker extends Component {
           openToYearSelection={openToYearSelection}
         />
 
-        <TimePickerDialog
-          ref="timePicker"
+        <TimePicker
+          ref={(node) => { this.timePicker = node; }}
           defaultTime={this.getDateOrCurrentTime()}
           onAccept={this.selectTime}
           bodyStyle={timePickerBodyStyle}

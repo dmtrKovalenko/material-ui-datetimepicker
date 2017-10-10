@@ -2,13 +2,11 @@
   "name": "material-ui-datetimepicker",
   "version": "0.2.0",
   "description": "Wrapper above material ui date and time pickers",
-  "main": "./dist/material-ui-datetimepicker.js",
+  "main": "./dist/index.js",
   "scripts": {
-    "bundle-demo": "webpack --config webpack.config.demo.js",
-    "bundle": "webpack --config webpack.config.dist.js",
-    "demo": "webpack-dev-server --config webpack.config.demo.js",
-    "lint": "eslint ./src",
-    "test": "npm run lint && mocha -R spec --compilers jsx:test/compiler.js './src/*.test.jsx'"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack --watch",
+    "build": "webpack"
   },
   "repository": {
     "type": "git",
@@ -27,37 +25,32 @@
   "author": "Dmitriy Kovalenko <dmtr.kovalenko@outlook.com>",
   "license": "MIT",
   "peerDependencies": {
-    "react": "^0.15.0",
-    "react-dom": "^0.15.0",
-    "material-ui": "^0.19.0",
-    "react-tap-event-plugin": "^0.2.0"
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
+    "material-ui": "^0.19.4"
   },
   "devDependencies": {
-    "babel": "5.8.29",
-    "babel-core": "5.8.30",
-    "babel-loader": "5.3.2",
-    "css-loader": "0.28.4",
-    "eslint": "1.6.0",
-    "extract-text-webpack-plugin": "3.0.0",
-    "material-ui": "0.19.2",
-    "mocha": "2.3.3",
-    "peer-deps-externals-webpack-plugin": "1.0.2",
-    "react": "^0.14.0",
-    "react-addons-test-utils": "0.14.2",
-    "react-dom": "^0.14.0",
-    "react-tap-event-plugin": "^0.2.0",
-    "sinon": "1.17.1",
-    "style-loader": "0.18.2",
-    "trash": "3.1.2",
-    "unexpected": "10.0.2",
-    "unexpected-sinon": "8.0.0",
-    "webpack": "1.12.1",
-    "webpack-dev-server": "1.10.1"
+    "babel-cli": "^6.24.1",
+    "babel-core": "^6.24.1",
+    "babel-eslint": "^8.0.1",
+    "babel-loader": "^7.0.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "babel-plugin-transform-react-jsx": "^6.24.1",
+    "babel-preset-env": "^1.5.1",
+    "eslint": "^4.8.0",
+    "eslint-config-airbnb": "^16.0.0",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-jsx-a11y": "^6.0.2",
+    "eslint-plugin-react": "^7.4.0"
   },
   "dependencies": {
-    "install": "0.10.1",
+    "material-ui": "^0.19.4",
     "moment": "^2.0.0",
-    "npm": "5.4.2",
-    "prop-types": "15.6.0"
+    "peer-deps-externals-webpack-plugin": "^1.0.2",
+    "prop-types": "^15.6.0",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
+    "webpack": "^3.5.1"
   }
 }

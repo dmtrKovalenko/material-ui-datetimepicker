@@ -1,0 +1,41 @@
+body { 
+  margin: 0;
+}
+
+*, 
+*:after,
+*:before {
+  box-sizing: border-box;
+}
+
+ p, h1, h2, h3, h4, h5, h6, body, span{
+  font-weight: normal;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.datepicker {
+  display: flex;
+  justify-content: center;
+}
+
+.picker-container {
+  display: flex;
+  justify-content: center;
+}
+
+.title {
+  padding: 0 5px;
+  text-align: center;
+}
+
+.options {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.options > .option {
+  margin: 0 10px 10px;
+}
