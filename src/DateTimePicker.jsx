@@ -32,6 +32,9 @@ export default class DateTimePicker extends Component {
 
     // styles
     className: PropTypes.string,
+    clearIconStyle: PropTypes.object,
+    textFieldStyle: PropTypes.object,
+    style: PropTypes.object,
 
     // DatePicker
     autoOkDatePicker: PropTypes.bool,
@@ -73,7 +76,7 @@ export default class DateTimePicker extends Component {
     disableYearSelection: false,
     hideCalendarDate: false,
     firstDayOfWeek: 1,
-    timePickerBodyStyle: {},
+
     timeFormat: 'ampm',
     autoOkTimePicker: false,
     timePickerDialogStyle: {},
@@ -81,6 +84,12 @@ export default class DateTimePicker extends Component {
     showCurrentDateByDefault: false,
     returnMomentDate: false,
     clearIcon: <ClearIcon />,
+
+    // styles
+    clearIconStyle: { },
+    textFieldStyle: { },
+    style: { },
+    timePickerBodyStyle: { },
 
     // functions
     onChange: () => { },
@@ -183,7 +192,7 @@ export default class DateTimePicker extends Component {
       firstDayOfWeek, textFieldClassName, autoOkDatePicker,
       datePickerMode, disableYearSelection, shouldDisableDate,
       hideCalendarDate, openToYearSelection, timePickerBodyStyle,
-      okLabel, autoOkTimePicker, timePickerDialogStyle, clearIconStyle, style,
+      okLabel, autoOkTimePicker, timePickerDialogStyle, clearIconStyle, style, textFieldStyle,
       minutesStep, timePickerDelay, defaultTime,
       showCurrentDateByDefault, returnMomentDate,
       DatePicker, TimePicker,
@@ -197,13 +206,13 @@ export default class DateTimePicker extends Component {
     } = this.props;
 
     return (
-      <div style={styles.container} className={this.props.className}>
+      <div style={{ ...styles.container, style }} className={this.props.className}>
         <TextField
           onFocus={this.handleFocus}
           className={textFieldClassName}
           onClick={this.openDatePicker}
           value={this.getDisplayTime()}
-          style={{ ...styles.textField, ...style }}
+          style={{ ...styles.textField, ...textFieldStyle }}
           {...other}
         />
 

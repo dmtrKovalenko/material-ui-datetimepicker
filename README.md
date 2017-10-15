@@ -75,7 +75,7 @@ import TimePickerDialog from 'material-ui/TimePicker/TimePickerDialog';
   className='datetime-container'
   textFieldClassName='datetime-input'
   defaultTime={null} // will accept Date or moment
-  fieldName='picker' // form value name
+  name='picker' // form value name
   datePickerMode='portrait' // or landscape
   openToYearSelection={false} 
   disableYearSelection={false}
@@ -93,6 +93,11 @@ import TimePickerDialog from 'material-ui/TimePicker/TimePickerDialog';
   shouldDisableDate={() => {}}
   DatePicker={DatePickerDialog}
   TimePicker={TimePickerDialog}
+  // styles
+  clearIconStyle={{ }}
+  textFieldStyle={{ }}
+  style={{ }} // root
+  timePickerBodyStyle={{ }}
 />
 ```
 ### Customizing input
