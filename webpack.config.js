@@ -32,18 +32,5 @@ module.exports = {
   },
   plugins: [
     new PeerDepsExternalsPlugin(),
-    new webpack.optimize.UglifyJsPlugin({
-      beautify: false,
-      comments: true,
-      compress: {
-        sequences: true,
-        booleans: true,
-        loops: true,
-        unused: true,
-        warnings: false,
-        drop_console: true,
-        unsafe: true,
-      },
-    }),
   ],
 };
