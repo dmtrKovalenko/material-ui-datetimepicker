@@ -19,18 +19,17 @@ export default class Demo extends React.Component {
   render() {
     return (
       <div>
-        <div className="datepicker">
-          <DateTimePicker
-            ref="picker"
-            DatePicker={DatePickerDialog}
-            TimePicker={TimePickerDialog}
-            floatingLabelText="Get my date"
-            format={this.state.format}
-            timePickerDelay={this.state.delay}
-            defaultTime={this.state.defaultTime}
-            onChange={selectedDate => this.setState({ selectedDate })}
-          />
-        </div>
+        <DateTimePicker
+          ref="picker"
+          className="datepicker"
+          DatePicker={DatePickerDialog}
+          TimePicker={TimePickerDialog}
+          floatingLabelText="Get my date"
+          format={this.state.format}
+          timePickerDelay={this.state.delay}
+          defaultTime={this.state.defaultTime}
+          onChange={selectedDate => this.setState({ selectedDate })}
+        />
 
         <div className="options">
           <Card className="option">

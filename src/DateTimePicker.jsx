@@ -5,6 +5,13 @@ import moment from 'moment';
 import ClearIcon from 'material-ui/svg-icons/content/clear';
 import { TextField, IconButton } from 'material-ui';
 
+const styles = {
+  container: {
+    display: 'flex',
+    alignItems: 'flex-end',
+  },
+};
+
 export default class DateTimePicker extends Component {
   static propTypes = {
     // IMPORTANT
@@ -176,7 +183,7 @@ export default class DateTimePicker extends Component {
       firstDayOfWeek, textFieldClassName, autoOkDatePicker,
       datePickerMode, disableYearSelection, shouldDisableDate,
       hideCalendarDate, openToYearSelection, timePickerBodyStyle,
-      okLabel, autoOkTimePicker, timePickerDialogStyle,
+      okLabel, autoOkTimePicker, timePickerDialogStyle, clearIconStyle, style,
       minutesStep, timePickerDelay, defaultTime,
       showCurrentDateByDefault, returnMomentDate,
       DatePicker, TimePicker,
@@ -190,16 +197,21 @@ export default class DateTimePicker extends Component {
     } = this.props;
 
     return (
-      <span className={this.props.className}>
+      <div style={styles.container} className={this.props.className}>
         <TextField
           onFocus={this.handleFocus}
           className={textFieldClassName}
           onClick={this.openDatePicker}
           value={this.getDisplayTime()}
+          style={{ ...styles.textField, ...style }}
           {...other}
         />
 
-        <IconButton onClick={this.clearState}>
+        <IconButton
+          onClick={this.clearState}
+          style={{ ...styles.clearIcon, ...clearIconStyle }}
+
+        >
           { clearIcon }
         </IconButton>
 
@@ -233,7 +245,7 @@ export default class DateTimePicker extends Component {
           style={timePickerDialogStyle}
           minutesStep={minutesStep}
         />
-      </span>
+      </div>
     );
   }
 }
