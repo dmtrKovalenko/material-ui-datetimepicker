@@ -8,8 +8,8 @@ import { TextField, IconButton } from 'material-ui';
 export default class DateTimePicker extends Component {
   static propTypes = {
     // IMPORTANT
-    DatePicker: PropTypes.shape({}).isRequired,
-    TimePicker: PropTypes.shape({}).isRequired,
+    DatePicker: PropTypes.func.isRequired,
+    TimePicker: PropTypes.func.isRequired,
 
     format: PropTypes.string,
     timePickerDelay: PropTypes.number,
@@ -223,7 +223,7 @@ export default class DateTimePicker extends Component {
 
         <TimePicker
           ref={(node) => { this.timePicker = node; }}
-          defaultTime={this.getDateOrCurrentTime()}
+          initialTime={this.getDateOrCurrentTime()}
           onAccept={this.selectTime}
           bodyStyle={timePickerBodyStyle}
           onShow={onTimePickerShow}
