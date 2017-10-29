@@ -29,6 +29,7 @@ export default class DateTimePicker extends Component {
     textFieldClassName: PropTypes.string,
     onChange: PropTypes.func,
     onFocus: PropTypes.func,
+    disabled: PropTypes.bool,
 
     // styles
     className: PropTypes.string,
@@ -76,6 +77,7 @@ export default class DateTimePicker extends Component {
     disableYearSelection: false,
     hideCalendarDate: false,
     firstDayOfWeek: 1,
+    disabled: false,
 
     timeFormat: 'ampm',
     autoOkTimePicker: false,
@@ -202,6 +204,7 @@ export default class DateTimePicker extends Component {
       onDatePickerDismiss,
       onDateSelected,
       onTimeSelected,
+      disabled,
       ...other
     } = this.props;
 
@@ -213,13 +216,14 @@ export default class DateTimePicker extends Component {
           onClick={this.openDatePicker}
           value={this.getDisplayTime()}
           style={{ ...styles.textField, ...textFieldStyle }}
+          disabled={disabled}
           {...other}
         />
 
         <IconButton
           onClick={this.clearState}
           style={{ ...styles.clearIcon, ...clearIconStyle }}
-
+          disabled={disabled}
         >
           { clearIcon }
         </IconButton>
