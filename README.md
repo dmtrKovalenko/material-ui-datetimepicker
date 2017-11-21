@@ -5,21 +5,6 @@
 # [Demo](https://dmtrkovalenko.github.io/material-ui-datetimepicker/)
 Component, that joins Material UI`s pickers into the one component, one input and 2 dialogs, appearing one by one. 
 
-### Breaking change
-Due to support of React 16 it was required to change the logic of this component work. Because of each ref should have an owner and material-ui components have refs inside their implementation you should pass created component from material-ui to this datetimepicker via props
-
-*do* 
-```jsx
-import DatePickerDialog from 'material-ui/DatePicker/DatePickerDialog';
-import TimePickerDialog from 'material-ui/TimePicker/TimePickerDialog';
-
-<DateTimePicker 
-  onChange={this.setDate} 
-  DatePicker={DatePickerDialog}
-  TimePicker={TimePickerDialog}
-/>
-```
-
 We are recommending to use your custom wrapper outside of this component to store your custom props, and not pass Dialogs each time you use this package, because it should be solved in one of next material-ui versions
 
 ### Dependencies
@@ -69,12 +54,12 @@ import DatePickerDialog from 'material-ui/DatePicker/DatePickerDialog';
 import TimePickerDialog from 'material-ui/TimePicker/TimePickerDialog';
 
 <DateTimePicker
+  value={new Date()} // picker value moment/string/number/js Date
   format='MMM DD, YYYY hh:mm A'
   timePickerDelay={150}
   returnMomentDate={false} // if true will return moment object
   className='datetime-container'
   textFieldClassName='datetime-input'
-  defaultTime={null} // will accept Date or moment
   name='picker' // form value name
   datePickerMode='portrait' // or landscape
   openToYearSelection={false} 
