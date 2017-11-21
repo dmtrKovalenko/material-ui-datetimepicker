@@ -21,7 +21,6 @@ export default class DateTimePicker extends Component {
     format: PropTypes.string,
     timePickerDelay: PropTypes.number,
     okLabel: PropTypes.string,
-    defaultTime: PropTypes.oneOfType([PropTypes.object, PropTypes.string, PropTypes.number]),
     name: PropTypes.string,
     showCurrentDateByDefault: PropTypes.bool,
     returnMomentDate: PropTypes.bool,
@@ -48,8 +47,9 @@ export default class DateTimePicker extends Component {
     hideCalendarDate: PropTypes.bool,
     firstDayOfWeek: PropTypes.number,
     onDatePickerDismiss: PropTypes.func,
-    maxDate: PropTypes.oneOf([PropTypes.object, PropTypes.string, PropTypes.number]),
-    minDate: PropTypes.oneOf([PropTypes.object, PropTypes.string, PropTypes.number]),
+    value: PropTypes.oneOfType([PropTypes.object, PropTypes.string, PropTypes.number]),
+    maxDate: PropTypes.oneOfType([PropTypes.object, PropTypes.string, PropTypes.number]),
+    minDate: PropTypes.oneOfType([PropTypes.object, PropTypes.string, PropTypes.number]),
 
     // TimePicker
     onTimeSelected: PropTypes.func,
@@ -62,6 +62,7 @@ export default class DateTimePicker extends Component {
   }
 
   static defaultProps = {
+    value: new Date(),
     okLabel: 'OK',
     minDate: undefined,
     maxDate: undefined,
@@ -70,7 +71,6 @@ export default class DateTimePicker extends Component {
     timePickerDelay: 150,
     className: 'datetime-container',
     textFieldClassName: 'datetime-input',
-    defaultTime: null,
     autoOkDatePicker: true,
     datePickerMode: 'portrait',
     openToYearSelection: false,
@@ -104,14 +104,17 @@ export default class DateTimePicker extends Component {
     onDatePickerDismiss: () => { },
   }
 
-  constructor(props) {
-    super(props);
+  getInitialTime = () => (this.props.value ? moment(this.props.value) : null)
 
-    this.state = {
-      dateTime: props.defaultTime ? moment(this.props.defaultTime) : null,
-    };
+  state = {
+    dateTime: this.getInitialTime(),
   }
 
+  componentDidUpdate = (prevProps) => {
+    if (prevProps.value !== this.props.value) {
+      this.setState({ dateTime: this.getInitialTime() });
+    }
+  }
 
   /*
     * Get current selected date by user
@@ -205,6 +208,7 @@ export default class DateTimePicker extends Component {
       onDateSelected,
       onTimeSelected,
       disabled,
+      value,
       ...other
     } = this.props;
 
@@ -230,7 +234,7 @@ export default class DateTimePicker extends Component {
 
         <DatePicker
           ref={(node) => { this.datePicker = node; }}
-          initialDate={this.getDateOrCurrentTime()}
+          value={this.getDateOrCurrentTime()}
           maxDate={this.getDateOrNull(maxDate)}
           minDate={this.getDateOrNull(minDate)}
           okLabel={okLabel}
@@ -248,7 +252,7 @@ export default class DateTimePicker extends Component {
 
         <TimePicker
           ref={(node) => { this.timePicker = node; }}
-          initialTime={this.getDateOrCurrentTime()}
+          value={this.getDateOrCurrentTime()}
           onAccept={this.selectTime}
           bodyStyle={timePickerBodyStyle}
           onShow={onTimePickerShow}

@@ -13,6 +13,11 @@ body {
   font-family: 'Open Sans', sans-serif;
 }
 
+.random-container {
+  display: flex;
+  justify-content: center;
+}
+
 .datepicker {
   display: flex;
   justify-content: center;

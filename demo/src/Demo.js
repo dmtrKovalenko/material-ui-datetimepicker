@@ -3,9 +3,13 @@ import React from 'react'
 import DateTimePicker from 'material-ui-datetimepicker';
 import DatePickerDialog from 'material-ui/DatePicker/DatePickerDialog'
 import TimePickerDialog from 'material-ui/TimePicker/TimePickerDialog';
-import { Card, CardHeader, CardText, TextField } from 'material-ui';
+import { RaisedButton, Card, CardHeader, CardText, TextField } from 'material-ui';
 
 import './index.css'
+
+const getRandomValue = (min, max) => {
+  return Math.floor(Math.random() * (max - min)) + min;
+}
 
 export default class Demo extends React.Component {
   state = {
@@ -16,9 +20,21 @@ export default class Demo extends React.Component {
     this.setState({ [key]: value }, () => this.refs.picker.forceUpdate())
   }
 
+  setRandomValue = () => {
+    const randomMilliseconds = getRandomValue(0, Date.now())
+    this.setState({ selectedDate: randomMilliseconds })
+  }
+  
   render() {
     return (
       <div>
+        <div className="random-container">
+          <RaisedButton primary 
+            label="Set random"
+            onClick={this.setRandomValue} 
+          />
+        </div>
+ 
         <DateTimePicker
           ref="picker"
           className="datepicker"
@@ -27,7 +43,7 @@ export default class Demo extends React.Component {
           floatingLabelText="Get my date"
           format={this.state.format}
           timePickerDelay={this.state.delay}
-          defaultTime={this.state.defaultTime}
+          value={this.state.selectedDate}
           onChange={selectedDate => this.setState({ selectedDate })}
         />
 
