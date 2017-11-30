@@ -104,7 +104,10 @@ export default class DateTimePicker extends Component {
     onDatePickerDismiss: () => { },
   }
 
-  getInitialTime = () => (this.props.value ? moment(this.props.value) : null)
+  // eslint-disable-next-line
+  getInitialTime = () => this.props.value 
+    ? moment(this.props.value)
+    : null
 
   state = {
     dateTime: this.getInitialTime(),
@@ -198,7 +201,7 @@ export default class DateTimePicker extends Component {
       datePickerMode, disableYearSelection, shouldDisableDate,
       hideCalendarDate, openToYearSelection, timePickerBodyStyle,
       okLabel, autoOkTimePicker, timePickerDialogStyle, clearIconStyle, style, textFieldStyle,
-      minutesStep, timePickerDelay, defaultTime,
+      minutesStep, timePickerDelay,
       showCurrentDateByDefault, returnMomentDate,
       DatePicker, TimePicker,
       onChange, onFocus,

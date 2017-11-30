@@ -1,6 +1,6 @@
 {
   "name": "material-ui-datetimepicker",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Wrapper above material ui date and time pickers",
   "main": "./dist/index.js",
   "scripts": {

@@ -1,5 +1,6 @@
 import React from 'react'
 
+import moment from 'moment'
 import DateTimePicker from 'material-ui-datetimepicker';
 import DatePickerDialog from 'material-ui/DatePicker/DatePickerDialog'
 import TimePickerDialog from 'material-ui/TimePicker/TimePickerDialog';
@@ -22,7 +23,7 @@ export default class Demo extends React.Component {
 
   setRandomValue = () => {
     const randomMilliseconds = getRandomValue(0, Date.now())
-    this.setState({ selectedDate: randomMilliseconds })
+    this.setState({ selectedDate: moment(randomMilliseconds) })
   }
   
   render() {
@@ -38,6 +39,7 @@ export default class Demo extends React.Component {
         <DateTimePicker
           ref="picker"
           className="datepicker"
+          returnMomentDate={false}
           DatePicker={DatePickerDialog}
           TimePicker={TimePickerDialog}
           floatingLabelText="Get my date"
