@@ -176,10 +176,9 @@ export default class DateTimePicker extends Component {
     dateTime.hours(date.getHours());
     dateTime.minutes(date.getMinutes());
 
-    this.setState({ dateTime }, () => {
-      this.props.onTimeSelected(this.getDate());
-      this.props.onChange(this.getDate());
-    });
+    this.setState({ dateTime });
+    this.props.onTimeSelected(this.getDate());
+    this.props.onChange(this.getDate());
   }
 
   handleFocus = (event) => {
