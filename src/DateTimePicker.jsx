@@ -105,7 +105,7 @@ export default class DateTimePicker extends Component {
   }
 
   // eslint-disable-next-line
-  getInitialTime = () => this.props.value 
+  getInitialTime = () => this.props.value
     ? moment(this.props.value)
     : null
 
@@ -226,13 +226,16 @@ export default class DateTimePicker extends Component {
           {...other}
         />
 
-        <IconButton
-          onClick={this.clearState}
-          style={{ ...styles.clearIcon, ...clearIconStyle }}
-          disabled={disabled}
-        >
-          { clearIcon }
-        </IconButton>
+        {
+          clearIcon
+          ? <IconButton
+              onClick={this.clearState}
+              style={{ ...styles.clearIcon, ...clearIconStyle }}
+              disabled={disabled}>
+              { clearIcon }
+            </IconButton>
+          : null
+        }
 
         <DatePicker
           ref={(node) => { this.datePicker = node; }}
