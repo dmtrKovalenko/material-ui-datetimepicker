@@ -239,7 +239,7 @@ export default class DateTimePicker extends Component {
 
         <DatePicker
           ref={(node) => { this.datePicker = node; }}
-          value={this.getDateOrCurrentTime()}
+          initialDate={this.getDateOrCurrentTime()}
           maxDate={this.getDateOrNull(maxDate)}
           minDate={this.getDateOrNull(minDate)}
           okLabel={okLabel}
@@ -257,7 +257,7 @@ export default class DateTimePicker extends Component {
 
         <TimePicker
           ref={(node) => { this.timePicker = node; }}
-          value={this.getDateOrCurrentTime()}
+          initialTime={this.getDateOrCurrentTime()}
           onAccept={this.selectTime}
           bodyStyle={timePickerBodyStyle}
           onShow={onTimePickerShow}
