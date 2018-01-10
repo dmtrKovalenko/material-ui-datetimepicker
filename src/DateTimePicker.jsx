@@ -29,6 +29,7 @@ export default class DateTimePicker extends Component {
     onChange: PropTypes.func,
     onFocus: PropTypes.func,
     disabled: PropTypes.bool,
+    placeholder: PropTypes.string,
 
     // styles
     className: PropTypes.string,
@@ -62,7 +63,7 @@ export default class DateTimePicker extends Component {
   }
 
   static defaultProps = {
-    value: new Date(),
+    value: undefined,
     okLabel: 'OK',
     minDate: undefined,
     maxDate: undefined,
@@ -78,6 +79,7 @@ export default class DateTimePicker extends Component {
     hideCalendarDate: false,
     firstDayOfWeek: 1,
     disabled: false,
+    placeholder: undefined,
 
     timeFormat: 'ampm',
     autoOkTimePicker: false,
@@ -145,7 +147,7 @@ export default class DateTimePicker extends Component {
     const { dateTime } = this.state;
     const defaultTime = this.props.showCurrentDateByDefault
       ? moment().format(this.props.format)
-      : '';
+      : this.props.placeholder || '';
 
     return dateTime
       ? dateTime.format(this.props.format)
@@ -200,16 +202,19 @@ export default class DateTimePicker extends Component {
       datePickerMode, disableYearSelection, shouldDisableDate,
       hideCalendarDate, openToYearSelection, timePickerBodyStyle,
       okLabel, autoOkTimePicker, timePickerDialogStyle, clearIconStyle, style, textFieldStyle,
-      minutesStep, timePickerDelay,
-      showCurrentDateByDefault, returnMomentDate,
+      minutesStep,
+      timePickerDelay,
+      showCurrentDateByDefault,
+      returnMomentDate,
       DatePicker, TimePicker,
-      onChange, onFocus,
+      // onChange, onFocus,
       onTimePickerShow,
       onDatePickerShow,
       onDatePickerDismiss,
       onDateSelected,
       onTimeSelected,
       disabled,
+      placeholder,
       value,
       ...other
     } = this.props;
@@ -220,7 +225,7 @@ export default class DateTimePicker extends Component {
           onFocus={this.handleFocus}
           className={textFieldClassName}
           onClick={this.openDatePicker}
-          value={this.getDisplayTime()}
+          value={value ? this.getDisplayTime() : placeholder}
           style={{ ...styles.textField, ...textFieldStyle }}
           disabled={disabled}
           {...other}
