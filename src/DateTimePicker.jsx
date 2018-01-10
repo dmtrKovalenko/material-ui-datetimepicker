@@ -207,7 +207,6 @@ export default class DateTimePicker extends Component {
       showCurrentDateByDefault,
       returnMomentDate,
       DatePicker, TimePicker,
-      // onChange, onFocus,
       onTimePickerShow,
       onDatePickerShow,
       onDatePickerDismiss,
