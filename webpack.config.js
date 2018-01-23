@@ -1,6 +1,8 @@
 const path = require('path');
 const webpack = require('webpack');
+const WebpackBundleAnalyzer = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const PeerDepsExternalsPlugin = require('peer-deps-externals-webpack-plugin');
+const nodeExternals = require('webpack-node-externals');
 
 module.exports = {
   entry: './src/index.js',
@@ -30,7 +32,10 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx'],
   },
+  externals: [nodeExternals()],
   plugins: [
     new PeerDepsExternalsPlugin(),
+    new webpack.IgnorePlugin(/node_modules$/),
+    new WebpackBundleAnalyzer(),
   ],
 };
