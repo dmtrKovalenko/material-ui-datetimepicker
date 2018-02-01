@@ -208,6 +208,7 @@ export default class DateTimePicker extends Component {
       returnMomentDate,
       DatePicker, TimePicker,
       onTimePickerShow,
+      onTimePickerDismiss,
       onDatePickerShow,
       onDatePickerDismiss,
       onDateSelected,
@@ -270,6 +271,7 @@ export default class DateTimePicker extends Component {
           autoOk={autoOkTimePicker}
           style={timePickerDialogStyle}
           minutesStep={minutesStep}
+          onDismiss={onTimePickerDismiss}
         />
       </div>
     );
