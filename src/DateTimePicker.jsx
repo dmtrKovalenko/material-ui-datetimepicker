@@ -18,6 +18,9 @@ export default class DateTimePicker extends Component {
     DatePicker: PropTypes.func.isRequired,
     TimePicker: PropTypes.func.isRequired,
 
+    DateTimeFormat: PropTypes.object,
+    locale: PropTypes.string,
+
     format: PropTypes.string,
     timePickerDelay: PropTypes.number,
     okLabel: PropTypes.string,
@@ -80,6 +83,9 @@ export default class DateTimePicker extends Component {
     firstDayOfWeek: 1,
     disabled: false,
     placeholder: undefined,
+
+    DateTimeFormat: undefined,
+    locale: undefined,
 
     timeFormat: 'ampm',
     autoOkTimePicker: false,
@@ -207,6 +213,7 @@ export default class DateTimePicker extends Component {
       showCurrentDateByDefault,
       returnMomentDate,
       DatePicker, TimePicker,
+      DateTimeFormat, locale,
       onTimePickerShow,
       onDatePickerShow,
       onDatePickerDismiss,
@@ -257,6 +264,8 @@ export default class DateTimePicker extends Component {
           shouldDisableDate={shouldDisableDate}
           hideCalendarDate={hideCalendarDate}
           openToYearSelection={openToYearSelection}
+          DateTimeFormat = { DateTimeFormat }
+          locale = { locale }
         />
 
         <TimePicker
