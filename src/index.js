@@ -1,1 +1,3 @@
-export { default } from './DateTimePicker.jsx'
+import DateTimePicker from "./DateTimePicker.jsx";
+
+export default DateTimePicker;
