@@ -36,6 +36,6 @@ module.exports = {
   plugins: [
     new PeerDepsExternalsPlugin(),
     new webpack.IgnorePlugin(/node_modules$/),
-    new WebpackBundleAnalyzer(),
+    // new WebpackBundleAnalyzer(),
   ],
 };
