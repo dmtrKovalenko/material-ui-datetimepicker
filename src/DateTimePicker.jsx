@@ -51,7 +51,7 @@ export default class DateTimePicker extends Component {
     hideCalendarDate: PropTypes.bool,
     firstDayOfWeek: PropTypes.number,
     onDatePickerDismiss: PropTypes.func,
-    value: PropTypes.oneOfType([PropTypes.object, PropTypes.string, PropTypes.number]),
+    customValue: PropTypes.oneOfType([PropTypes.object, PropTypes.string, PropTypes.number]),
     maxDate: PropTypes.oneOfType([PropTypes.object, PropTypes.string, PropTypes.number]),
     minDate: PropTypes.oneOfType([PropTypes.object, PropTypes.string, PropTypes.number]),
 
@@ -66,7 +66,7 @@ export default class DateTimePicker extends Component {
   }
 
   static defaultProps = {
-    value: undefined,
+    customValue: undefined,
     okLabel: 'OK',
     minDate: undefined,
     maxDate: undefined,
@@ -113,8 +113,8 @@ export default class DateTimePicker extends Component {
   }
 
   // eslint-disable-next-line
-  getInitialTime = () => this.props.value
-    ? moment(this.props.value)
+  getInitialTime = () => this.props.customValue
+    ? moment(this.props.customValue)
     : null
 
   state = {
@@ -122,7 +122,7 @@ export default class DateTimePicker extends Component {
   }
 
   componentDidUpdate = (prevProps) => {
-    if (prevProps.value !== this.props.value) {
+    if (prevProps.customValue !== this.props.customValue) {
       this.setState({ dateTime: this.getInitialTime() });
     }
   }
@@ -221,8 +221,7 @@ export default class DateTimePicker extends Component {
       onDateSelected,
       onTimeSelected,
       disabled,
-      placeholder,
-      value,
+      customValue,
       ...other
     } = this.props;
 
@@ -232,7 +231,7 @@ export default class DateTimePicker extends Component {
           onFocus={this.handleFocus}
           className={textFieldClassName}
           onClick={this.openDatePicker}
-          value={value ? this.getDisplayTime() : placeholder}
+          value={this.getDisplayTime()}
           style={{ ...styles.textField, ...textFieldStyle }}
           disabled={disabled}
           {...other}
@@ -240,13 +239,13 @@ export default class DateTimePicker extends Component {
 
         {
           clearIcon
-          ? <IconButton
+            ? <IconButton
               onClick={this.clearState}
               style={{ ...styles.clearIcon, ...clearIconStyle }}
               disabled={disabled}>
               { clearIcon }
             </IconButton>
-          : null
+            : null
         }
 
         <DatePicker

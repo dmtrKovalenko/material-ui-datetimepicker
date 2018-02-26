@@ -25,17 +25,17 @@ export default class Demo extends React.Component {
     const randomMilliseconds = getRandomValue(0, Date.now())
     this.setState({ selectedDate: moment(randomMilliseconds) })
   }
-  
+
   render() {
     return (
       <div>
         <div className="random-container">
-          <RaisedButton primary 
+          <RaisedButton primary
             label="Set random"
-            onClick={this.setRandomValue} 
+            onClick={this.setRandomValue}
           />
         </div>
- 
+
         <DateTimePicker
           ref="picker"
           className="datepicker"
@@ -45,7 +45,6 @@ export default class Demo extends React.Component {
           floatingLabelText="Get my date"
           format={this.state.format}
           timePickerDelay={this.state.delay}
-          value={this.state.selectedDate}
           onChange={selectedDate => this.setState({ selectedDate })}
         />
 
