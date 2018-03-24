@@ -1,3 +1,7 @@
+# Deprecated 
+We suggest migrate to [material-ui v1](https://material-ui-next.com/guides/migration-v0.x) and use [material-ui-pickers](https://github.com/dmtrKovalenko/material-ui-pickers) for date/time pickers.
+This project will not be longer supported.
+
 # Material UI Date & Time picker
 
 > Wrapper for [Material UI](http://material-ui.com) Time and Date picker component
