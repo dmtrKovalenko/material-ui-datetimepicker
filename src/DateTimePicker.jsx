@@ -228,13 +228,13 @@ export default class DateTimePicker extends Component {
     return (
       <div style={{ ...styles.container, style }} className={this.props.className}>
         <TextField
+          {...other}
           onFocus={this.handleFocus}
           className={textFieldClassName}
           onClick={this.openDatePicker}
           value={this.getDisplayTime()}
           style={{ ...styles.textField, ...textFieldStyle }}
           disabled={disabled}
-          {...other}
         />
 
         {
