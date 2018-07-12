@@ -208,7 +208,7 @@ export default class DateTimePicker extends Component {
       clearIcon, maxDate, minDate, timeFormat,
       firstDayOfWeek, textFieldClassName, autoOkDatePicker,
       datePickerMode, disableYearSelection, shouldDisableDate,
-      hideCalendarDate, openToYearSelection, timePickerBodyStyle, style,
+      hideCalendarDate, openToYearSelection, timePickerBodyStyle,
       cancelLabel, okLabel, autoOkTimePicker, timePickerDialogStyle, clearIconStyle, style, textFieldStyle,
       minutesStep,
       timePickerDelay,
@@ -228,13 +228,13 @@ export default class DateTimePicker extends Component {
     } = this.props;
 
     return (
-      <div style={{ ...styles.container, style }} className={this.props.className}>
+      <div style={Object.assign({}, styles.container, style)} className={this.props.className}>
         <TextField
           onFocus={this.handleFocus}
           className={textFieldClassName}
           onClick={this.openDatePicker}
           value={this.getDisplayTime()}
-          style={{ ...styles.textField, ...textFieldStyle }}
+          style={Object.assign({}, styles.textField, textFieldStyle)}
           disabled={disabled}
           {...other}
         />
@@ -243,7 +243,7 @@ export default class DateTimePicker extends Component {
           clearIcon
             ? <IconButton
               onClick={this.clearState}
-              style={{ ...styles.clearIcon, ...clearIconStyle }}
+              style={Object.assign({}, styles.clearIcon, clearIconStyle)}
               disabled={disabled}>
               { clearIcon }
             </IconButton>
