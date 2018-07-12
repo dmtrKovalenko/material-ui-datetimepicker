@@ -18,12 +18,13 @@ export default class DateTimePicker extends Component {
     DatePicker: PropTypes.func.isRequired,
     TimePicker: PropTypes.func.isRequired,
 
-    DateTimeFormat: PropTypes.object,
+    DateTimeFormat: PropTypes.func,
     locale: PropTypes.string,
 
     format: PropTypes.string,
     timePickerDelay: PropTypes.number,
     okLabel: PropTypes.string,
+    cancelLabel: PropTypes.string,
     name: PropTypes.string,
     showCurrentDateByDefault: PropTypes.bool,
     returnMomentDate: PropTypes.bool,
@@ -68,6 +69,7 @@ export default class DateTimePicker extends Component {
   static defaultProps = {
     customValue: undefined,
     okLabel: 'OK',
+    cancelLabel: 'Cancel',
     minDate: undefined,
     maxDate: undefined,
     name: 'datepicker',
@@ -207,7 +209,7 @@ export default class DateTimePicker extends Component {
       firstDayOfWeek, textFieldClassName, autoOkDatePicker,
       datePickerMode, disableYearSelection, shouldDisableDate,
       hideCalendarDate, openToYearSelection, timePickerBodyStyle,
-      okLabel, autoOkTimePicker, timePickerDialogStyle, clearIconStyle, style, textFieldStyle,
+      cancelLabel, okLabel, autoOkTimePicker, timePickerDialogStyle, clearIconStyle, style, textFieldStyle,
       minutesStep,
       timePickerDelay,
       showCurrentDateByDefault,
@@ -253,6 +255,7 @@ export default class DateTimePicker extends Component {
           initialDate={this.getDateOrCurrentTime()}
           maxDate={this.getDateOrNull(maxDate)}
           minDate={this.getDateOrNull(minDate)}
+          cancelLabel={cancelLabel}
           okLabel={okLabel}
           autoOk={autoOkDatePicker}
           firstDayOfWeek={firstDayOfWeek}
@@ -264,8 +267,8 @@ export default class DateTimePicker extends Component {
           shouldDisableDate={shouldDisableDate}
           hideCalendarDate={hideCalendarDate}
           openToYearSelection={openToYearSelection}
-          DateTimeFormat = { DateTimeFormat }
-          locale = { locale }
+          DateTimeFormat = {DateTimeFormat}
+          locale = {locale}
         />
 
         <TimePicker
@@ -275,6 +278,7 @@ export default class DateTimePicker extends Component {
           bodyStyle={timePickerBodyStyle}
           onShow={onTimePickerShow}
           format={timeFormat}
+          cancelLabel={cancelLabel}
           okLabel={okLabel}
           autoOk={autoOkTimePicker}
           style={timePickerDialogStyle}
