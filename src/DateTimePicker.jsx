@@ -208,7 +208,7 @@ export default class DateTimePicker extends Component {
       clearIcon, maxDate, minDate, timeFormat,
       firstDayOfWeek, textFieldClassName, autoOkDatePicker,
       datePickerMode, disableYearSelection, shouldDisableDate,
-      hideCalendarDate, openToYearSelection, timePickerBodyStyle,
+      hideCalendarDate, openToYearSelection, timePickerBodyStyle, style,
       cancelLabel, okLabel, autoOkTimePicker, timePickerDialogStyle, clearIconStyle, style, textFieldStyle,
       minutesStep,
       timePickerDelay,
